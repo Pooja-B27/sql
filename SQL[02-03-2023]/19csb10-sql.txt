@@ -1,0 +1,365 @@
+SQL> create table Hotel(hotelid number,hotelname varchar(10),city varchar(10),stars number);
+
+Table created.
+
+SQL> create table rooms(roomid number,roomtype varchar(10),price number);
+
+Table created.
+
+SQL> create table bookings(guest_id number,hotel_id number,room_id number,check_in_date date,check-out_date date);
+create table bookings(guest_id number,hotel_id number,room_id number,check_in_date date,check-out_date date)
+                                                                                             *
+ERROR at line 1:
+ORA-00906: missing left parenthesis 
+
+
+SQL>  create table bookings(guest_id number,hotel_id number,room_id number,check_in_date date,check-
+> 
+  2  
+SQL> create table bookings(guest_id number,hotel_id number,room_id number,check_in_date date,check_out_date date);
+
+Table created.
+
+SQL> insert into Hotel(01,chithrahotel,Ariyalur,3);
+insert into Hotel(01,chithrahotel,Ariyalur,3)
+                  *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into Hotel values(01,chithrahotel,Ariyalur,3);
+insert into Hotel values(01,chithrahotel,Ariyalur,3)
+                                         *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL>  insert into Hotel values('01','chithra','Ariyalur','3');
+
+1 row created.
+
+SQL> insert into Hotel values('02','Dhanalakshmi','Perambalur','5');
+insert into Hotel values('02','Dhanalakshmi','Perambalur','5')
+                              *
+ERROR at line 1:
+ORA-12899: value too large for column "CSE4B10"."HOTEL"."HOTELNAME" (actual: 
+12, maximum: 10) 
+
+
+SQL>  insert into Hotel values('02','Dhana','Perambalur','5');
+
+1 row created.
+
+SQL>  insert into Hotel values('0
+  2  
+SQL> insert into Hotel values('03','Abi','Salem','4');
+
+1 row created.
+
+SQL> insert into Hotel values('04','bala','coimbatore','5');
+
+1 row created.
+
+SQL> insert into Hotel values('05','Aswinsh','Trichy','7');
+
+1 row created.
+
+SQL> select*from Hotel;
+
+   HOTELID HOTELNAME  CITY            STARS                                     
+---------- ---------- ---------- ----------                                     
+         1 chithra    Ariyalur            3                                     
+         2 Dhana      Perambalur          5                                     
+         3 Abi        Salem               4                                     
+         4 bala       coimbatore          5                                     
+         5 Aswinsh    Trichy              7                                     
+
+SQL> select*from rooms;
+
+no rows selected
+
+SQL> insert into rooms values('11','single','1000');
+
+1 row created.
+
+SQL> insert into rooms values('12','Double','2000');
+
+1 row created.
+
+SQL> insert into rooms values('13','Family','5000');
+
+1 row created.
+
+SQL> insert into rooms values('14','Double','2000');
+
+1 row created.
+
+SQL> insert into rooms values('15','single','1000');
+
+1 row created.
+
+SQL> select*from rooms;
+
+    ROOMID ROOMTYPE        PRICE                                                
+---------- ---------- ----------                                                
+        11 single           1000                                                
+        12 Double           2000                                                
+        13 Family           5000                                                
+        14 Double           2000                                                
+        15 single           1000                                                
+
+SQL> insert into bookings('21','01','11','20 jan 2023','23 jan 2023');
+insert into bookings('21','01','11','20 jan 2023','23 jan 2023')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into bookings values('21','01','11','20 jan 2023','23 jan 2023');
+
+1 row created.
+
+SQL> insert into bookings values('22','02','12','25 jan 2023','28 jan 2023');
+
+1 row created.
+
+SQL> insert into bookings values('23','03','13','11 dec 2022','20 dec 2022');
+
+1 row created.
+
+SQL> insert into bookings values('24','04','14','02 feb 2023','08 feb 2023');
+
+1 row created.
+
+SQL> 
+SQL> insert into bookings values('25','05','15','14 feb 2023','16 feb 2023');
+
+1 row created.
+
+SQL> select*from bookings;
+
+  GUEST_ID   HOTEL_ID    ROOM_ID CHECK_IN_ CHECK_OUT                            
+---------- ---------- ---------- --------- ---------                            
+        21          1         11 20-JAN-23 23-JAN-23                            
+        22          2         12 25-JAN-23 28-JAN-23                            
+        23          3         13 11-DEC-22 20-DEC-22                            
+        24          4         14 02-FEB-23 08-FEB-23                            
+        25          5         15 14-FEB-23 16-FEB-23                            
+
+SQL> select*from rooms;
+
+    ROOMID ROOMTYPE        PRICE                                                
+---------- ---------- ----------                                                
+        11 single           1000                                                
+        12 Double           2000                                                
+        13 Family           5000                                                
+        14 Double           2000                                                
+        15 single           1000                                                
+
+SQL> select*from Hotel;
+
+   HOTELID HOTELNAME  CITY            STARS                                     
+---------- ---------- ---------- ----------                                     
+         1 chithra    Ariyalur            3                                     
+         2 Dhana      Perambalur          5                                     
+         3 Abi        Salem               4                                     
+         4 bala       coimbatore          5                                     
+         5 Aswinsh    Trichy              7                                     
+
+SQL> alter table Hotel add primary key(Hotelid);
+
+Table altered.
+
+SQL> alter table bookings add foreign key(hotel_id)references primary key table(hotelid);
+alter table bookings add foreign key(hotel_id)references primary key table(hotelid)
+                                                                 *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table bookings add foreign key(hotel_id)references Hotel(hotelid);
+
+Table altered.
+
+SQL> alter table Hotel add check(stars<=7);
+
+Table altered.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> alter table Hotel add check(stars>=3 and stars<=7);
+
+Table altered.
+
+SQL> alter table rooms add check(roomtype in('single','Double','
+  2  
+SQL> alter table rooms add check(roomtype in('single','Double','Family'));
+
+Table altered.
+
+SQL> alter table Hotel add notnull(hotelname);
+alter table Hotel add notnull(hotelname)
+                             *
+ERROR at line 1:
+ORA-00902: invalid datatype 
+
+
+SQL> alter table Hotel modify hotelname not null;
+
+Table altered.
+
+SQL> select*from Hotel where hotelname='Ariyalur';
+
+no rows selected
+
+SQL> select*from Hotel where city='Ariyalur';
+
+   HOTELID HOTELNAME  CITY            STARS                                     
+---------- ---------- ---------- ----------                                     
+         1 chithra    Ariyalur            3                                     
+
+SQL> select*from rooms order by price;
+
+    ROOMID ROOMTYPE        PRICE                                                
+---------- ---------- ----------                                                
+        11 single           1000                                                
+        15 single           1000                                                
+        12 Double           2000                                                
+        14 Double           2000                                                
+        13 Family           5000                                                
+
+SQL> select price from rooms where roomtype='single';
+
+     PRICE                                                                      
+----------                                                                      
+      1000                                                                      
+      1000                                                                      
+
+SQL> select*from Hotel where city='perambalur';
+
+no rows selected
+
+SQL> select*from Hotel where city='Perambalur';
+
+   HOTELID HOTELNAME  CITY            STARS                                     
+---------- ---------- ---------- ----------                                     
+         2 Dhana      Perambalur          5                                     
+
+SQL> select hotelid from Hotel where city='Perambalur';
+
+   HOTELID                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> select count(hotelname) from Hotel where city='Perambalur';
+
+COUNT(HOTELNAME)                                                                
+----------------                                                                
+               1                                                                
+
+SQL> select count(roomtype) from rooms where room='Double';
+select count(roomtype) from rooms where room='Double'
+                                        *
+ERROR at line 1:
+ORA-00904: "ROOM": invalid identifier 
+
+
+SQL> select count(roomid) from rooms where roomtype='Double';
+
+COUNT(ROOMID)                                                                   
+-------------                                                                   
+            2                                                                   
+
+SQL> select count(Double) from rooms where city='Ariyalur';
+select count(Double) from rooms where city='Ariyalur'
+                                      *
+ERROR at line 1:
+ORA-00904: "CITY": invalid identifier 
+
+
+SQL> update rooms set price=price*15 where roomtype='Double';
+
+2 rows updated.
+
+SQL> select*from rooms;
+
+    ROOMID ROOMTYPE        PRICE                                                
+---------- ---------- ----------                                                
+        11 single           1000                                                
+        12 Double          30000                                                
+        13 Family           5000                                                
+        14 Double          30000                                                
+        15 single           1000                                                
+
+SQL> alter table rooms add hotelid number;
+
+Table altered.
+
+SQL> select*from rooms;
+
+    ROOMID ROOMTYPE        PRICE    HOTELID                                     
+---------- ---------- ---------- ----------                                     
+        11 single           1000                                                
+        12 Double          30000                                                
+        13 Family           5000                                                
+        14 Double          30000                                                
+        15 single           1000                                                
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+SQL> select*from rooms;
+
+    ROOMID ROOMTYPE        PRICE    HOTELID                                     
+---------- ---------- ---------- ----------                                     
+        11 single           1000          1                                     
+        12 Double          30000                                                
+        13 Family           5000                                                
+        14 Double          30000                                                
+        15 single           1000                                                
+
+SQL> update rooms set hotelid='02' where roomid='12';
+
+1 row updated.
+
+SQL> update  rooms set hotelid='03' where roomid='13';
+
+1 row updated.
+
+SQL> update  rooms set hotelid='04' where roomid='14';
+
+1 row updated.
+
+SQL> update  rooms set hotelid='05' where roomid='15';
+
+1 row updated.
+
+SQL> select*from rooms;
+
+    ROOMID ROOMTYPE        PRICE    HOTELID                                     
+---------- ---------- ---------- ----------                                     
+        11 single           1000          1                                     
+        12 Double          30000          2                                     
+        13 Family           5000          3                                     
+        14 Double          30000          4                                     
+        15 single           1000          5                                     
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select avg(stars) from hotel;
+
+AVG(STARS)                                                                      
+----------                                                                      
+       4.8                                                                      
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
