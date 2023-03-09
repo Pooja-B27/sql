@@ -1,0 +1,42 @@
+constraints:
+    -set of rules enforced on data
+5 types:
+   1] primary key:
+          -unique identifier
+          -will not allows null values and dublicate values
+          -a table have only one primary key.
+          -table with primary key is master table 
+ 2] foreign key:
+          -it refers the value in the primary key
+           - a table 
+
+
+
+3]not null:
+      -will not allow null values.
+      
+4]check constraint:
+      -allow only the contitions is true.
+5]unique:
+    -   it allows null values.
+    -it does not allow duplicate values.
+    - multiple unique.
+  
+
+-constraints can declare while creating a table or after create  the table
+  
+
+ syntax:
+    alter table table_name add constraint_type(field_name);
+    
+      alter table table_name add foreign key(field_name)reference s primary key table(field_name);
+    
+      alter table table_name modify field_name not null;
+
+
+
+
+
+
+
+
